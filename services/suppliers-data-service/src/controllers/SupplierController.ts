@@ -8,7 +8,10 @@ export class SupplierController {
       const result = await SupplierService.createSupplier(req.body);
       res.status(201).json(result);
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      console.error("Error creating supplier:", error);
+      const errorMessage =
+        error instanceof Error ? error.message : "Unknown error";
+      res.status(500).json({ error: errorMessage });
     }
   }
 
@@ -21,7 +24,10 @@ export class SupplierController {
       );
       res.status(201).json(result);
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      console.error("Error updating supplier:", error);
+      const errorMessage =
+        error instanceof Error ? error.message : "Unknown error";
+      res.status(500).json({ error: errorMessage });
     }
   }
 
@@ -31,7 +37,10 @@ export class SupplierController {
       const result = await SupplierService.deleteSupplier(req.params.id);
       res.status(201).json(result);
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      console.error("Error deleting supplier:", error);
+      const errorMessage =
+        error instanceof Error ? error.message : "Unknown error";
+      res.status(500).json({ error: errorMessage });
     }
   }
 
@@ -40,7 +49,10 @@ export class SupplierController {
       const suppliers = await SupplierService.getAllSuppliers();
       res.status(200).json(suppliers);
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      console.error("Error getting suppliers:", error);
+      const errorMessage =
+        error instanceof Error ? error.message : "Unknown error";
+      res.status(500).json({ error: errorMessage });
     }
   }
 }
