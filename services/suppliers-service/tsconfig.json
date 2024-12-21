@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "strictPropertyInitialization": false,
+    "target": "ES6",
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "types": ["node", "mocha"],
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "noImplicitAny": false,
+    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "node"
+  },
+  "include": ["src/**/*.ts", "test/**/*.ts"],
+  "exclude": ["node_modules"]
+}
