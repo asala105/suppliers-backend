@@ -18,11 +18,11 @@ export class SupplierService {
     return await CreateSupplierCommand.execute(data);
   }
 
-  static async updateSupplier(id: number, data: Omit<Supplier, "id">) {
+  static async updateSupplier(id: string, data: Omit<Supplier, "id">) {
     return await UpdateSupplierCommand.execute(id, data);
   }
 
-  static async deleteSupplier(id: number) {
+  static async deleteSupplier(id: string) {
     return await DeleteSupplierCommand.execute(id);
   }
 }

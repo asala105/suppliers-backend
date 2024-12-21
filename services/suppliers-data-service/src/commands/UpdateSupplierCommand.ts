@@ -2,7 +2,7 @@ import { AppDataSource } from "../data-source";
 import { Supplier } from "../entities/Supplier";
 
 export class UpdateSupplierCommand {
-  static async execute(id: number, data: Partial<Supplier>) {
+  static async execute(id: string, data: Partial<Supplier>) {
     const supplierRepo = AppDataSource.getRepository(Supplier);
     await supplierRepo.update(id, data);
     const updatedSupplier = await supplierRepo.findOneBy({ id });
