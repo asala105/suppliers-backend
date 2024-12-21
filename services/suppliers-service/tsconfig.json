@@ -12,10 +12,10 @@
     "types": ["node", "mocha"],
     "outDir": "./dist",
     "rootDir": "./src",
-    "noImplicitAny": false,
-    "allowSyntheticDefaultImports": true,
-    "moduleResolution": "node"
+    "noImplicitAny": false
   },
   "include": ["src/**/*.ts", "test/**/*.ts"],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ]
 }
