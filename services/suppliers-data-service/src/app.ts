@@ -1,3 +1,4 @@
+import "./config";
 import express from "express";
 import bodyParser from "body-parser";
 import { AppDataSource } from "./data-source";
