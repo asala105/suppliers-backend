@@ -1,0 +1,28 @@
+{
+  "name": "suppliers-data-service",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@dapr/dapr": "^3.4.1",
+    "express": "^4.21.2",
+    "pg": "^8.13.1",
+    "reflect-metadata": "^0.2.2",
+    "ts-node-dev": "^2.0.0",
+    "typeorm": "^0.3.20",
+    "typescript": "^5.7.2"
+  },
+  "devDependencies": {
+    "@types/chai": "^5.0.1",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^22.10.2",
+    "chai": "^5.1.2",
+    "mocha": "^11.0.1"
+  }
+}
