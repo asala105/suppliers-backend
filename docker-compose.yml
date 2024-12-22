@@ -1,4 +1,52 @@
 services:
+  suppliers-data-service:
+    build:
+      context: ./services/suppliers-data-service
+      dockerfile: DockerFile
+    ports:
+      - '3001:3000'
+    depends_on:
+      - postgres
+    networks:
+      - app-network
+
+  dapr-sidecar-one:
+    image: daprio/daprd:latest
+    command: [
+      './daprd',
+      '-app-id', 'suppliers-data-service',
+      '-app-port', '3000',
+      '-components-path', '/components'
+    ]
+    depends_on:
+      - suppliers-data-service
+    networks:
+      - app-network
+
+  suppliers-service:
+    build:
+      context: ./services/suppliers-service
+      dockerfile: DockerFile
+    ports:
+      - '3002:3000'
+    depends_on:
+      - postgres
+    networks:
+      - app-network
+  
+  dapr-sidecar-two:
+    image: daprio/daprd:latest
+    command: [
+      './daprd',
+      '-app-id', 'suppliers-service',
+      '-app-port', '3000',
+      '-components-path', '/components'
+    ]
+    depends_on:
+      - suppliers-service
+    networks:
+      - app-network
+
   postgres:
     image: postgres:15
     container_name: postgres
@@ -12,5 +60,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+networks:
+  app-network:
 volumes:
   postgres_data:
