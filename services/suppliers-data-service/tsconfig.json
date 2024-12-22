@@ -11,10 +11,8 @@
     "emitDecoratorMetadata": true,
     "types": ["node", "mocha"],
     "outDir": "./dist",
-    "rootDir": "./src",  
+    "rootDir": "./src"
   },
   "include": ["src/**/*.ts", "test/**/*.ts"],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }

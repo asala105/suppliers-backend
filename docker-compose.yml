@@ -4,18 +4,28 @@ services:
       context: ./services/suppliers-data-service
       dockerfile: DockerFile
     ports:
-      - '3001:3000'
+      - '3001:3001'
+    environment:
+      DB_HOST: postgres
+      DB_PORT: ${DB_PORT}
+      PORT: ${PORT}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
     depends_on:
       - postgres
+    volumes:
+      - ./components:/components
     networks:
       - app-network
 
-  dapr-sidecar-one:
+  dapr-sidecar-suppliers-data-service:
     image: daprio/daprd:latest
     command: [
       './daprd',
       '-app-id', 'suppliers-data-service',
-      '-app-port', '3000',
+      '-app-port', '3001',
+      '-dapr-http-port', '3500',
       '-components-path', '/components'
     ]
     depends_on:
@@ -28,18 +38,22 @@ services:
       context: ./services/suppliers-service
       dockerfile: DockerFile
     ports:
-      - '3002:3000'
+      - '3002:3002'
     depends_on:
       - postgres
     networks:
       - app-network
+    volumes:
+      - ./components:/components
+
   
-  dapr-sidecar-two:
+  dapr-sidecar-suppliers-service:
     image: daprio/daprd:latest
     command: [
       './daprd',
       '-app-id', 'suppliers-service',
-      '-app-port', '3000',
+      '-app-port', '3002',
+      '-dapr-http-port', '3501',
       '-components-path', '/components'
     ]
     depends_on:
