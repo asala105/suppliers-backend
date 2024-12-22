@@ -7,7 +7,7 @@ import { Supplier } from "../entities/Supplier";
 import { GetSuppliersQuery } from "../queries/GetSuppliersQuery";
 
 export class SupplierService {
-  static async getAllSuppliers(
+  static async getSuppliers(
     filters: Partial<Supplier> = {},
     sort: { [key: string]: "ASC" | "DESC" } = {}
   ) {

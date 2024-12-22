@@ -46,7 +46,7 @@ export class SupplierController {
 
   static async getSuppliers(req: Request, res: Response) {
     try {
-      const suppliers = await SupplierService.getAllSuppliers();
+      const suppliers = await SupplierService.getSuppliers(req.body);
       res.status(200).json(suppliers);
     } catch (error) {
       console.error("Error getting suppliers:", error);
