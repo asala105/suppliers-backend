@@ -1,8 +1,23 @@
 services:
+  postgres:
+    image: postgres:15
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
   suppliers-data-service:
     build:
       context: ./services/suppliers-data-service
-      dockerfile: DockerFile
+      dockerfile: Dockerfile
     ports:
       - '3001:3001'
     environment:
@@ -22,11 +37,10 @@ services:
   dapr-sidecar-suppliers-data-service:
     image: daprio/daprd:latest
     command: [
-      './daprd',
-      '-app-id', 'suppliers-data-service',
-      '-app-port', '3001',
-      '-dapr-http-port', '3500',
-      '-components-path', '/components'
+      "./daprd",
+      "--app-id", "suppliers-data-service",
+      "--app-port", "3001",
+      '-dapr-http-port', '3501',
     ]
     depends_on:
       - suppliers-data-service
@@ -36,11 +50,13 @@ services:
   suppliers-service:
     build:
       context: ./services/suppliers-service
-      dockerfile: DockerFile
+      dockerfile: Dockerfile
     ports:
       - '3002:3002'
     depends_on:
       - postgres
+    environment:
+      PORT: ${PORT}
     networks:
       - app-network
     volumes:
@@ -53,26 +69,12 @@ services:
       './daprd',
       '-app-id', 'suppliers-service',
       '-app-port', '3002',
-      '-dapr-http-port', '3501',
-      '-components-path', '/components'
+      '-dapr-http-port', '3502',
     ]
     depends_on:
       - suppliers-service
     networks:
       - app-network
-
-  postgres:
-    image: postgres:15
-    container_name: postgres
-    restart: always
-    environment:
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_DB: ${DB_NAME}
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
 
 networks:
   app-network:

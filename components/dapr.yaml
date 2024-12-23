@@ -1,0 +1,24 @@
+apiVersion: dapr.io/v1.0
+kind: Component
+metadata:
+  name: statestore
+  namespace: default
+spec:
+  type: bindings.postgresql
+  version: v1
+  metadata:
+    - name: connectionString
+      value: "host=${DB_HOST};port=${DB_PORT};user=${DB_USER};password=${DB_PASSWORD};database=${DB_NAME}"
+
+version: 1
+apps:
+  - appID: suppliers-data-service
+    appDirPath: ../services/suppliers-data-service/
+    appPort: 3001
+    daprHTTPPort: 3501
+    command: ["npm", "start"]
+  - appID: suppliers-service
+    appDirPath: ../services/suppliers-service/
+    appPort: 3002
+    daprHTTPPort: 3502
+    command: ["npm", "start"]
