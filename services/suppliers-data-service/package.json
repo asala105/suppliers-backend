@@ -1,7 +1,7 @@
 {
   "name": "suppliers-data-service",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "app.ts",
   "scripts": {
     "start": "ts-node src/app.ts",
     "build": "tsc",
@@ -22,7 +22,6 @@
     "express": "^4.21.2",
     "pg": "^8.13.1",
     "reflect-metadata": "^0.2.2",
-    "sinon": "^19.0.2",
     "ts-node-dev": "^2.0.0"
   },
   "devDependencies": {
@@ -33,7 +32,9 @@
     "@types/node": "^22.10.2",
     "@types/sinon": "^17.0.3",
     "chai": "^5.1.2",
+    "cross-env": "^7.0.3",
     "mocha": "^11.0.1",
+    "sinon": "^19.0.2",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
     "typeorm": "^0.3.20",
