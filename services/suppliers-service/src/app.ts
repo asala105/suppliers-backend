@@ -1,11 +1,10 @@
 import "./config";
 import express from "express";
 import bodyParser from "body-parser";
-// import { AppDataSource } from "./data-source";
 import { SupplierController } from "./controllers/SupplierController";
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3002;
 
 app.use(bodyParser.json());
 

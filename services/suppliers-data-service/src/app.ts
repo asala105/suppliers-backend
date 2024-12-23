@@ -1,8 +1,8 @@
-import "./config";
-import express from "express";
 import bodyParser from "body-parser";
-import { AppDataSource } from "./data-source";
+import express from "express";
+import "./config";
 import { SupplierController } from "./controllers/SupplierController";
+import { AppDataSource } from "./data-source";
 
 const app = express();
 const PORT = process.env.PORT || 3001;
