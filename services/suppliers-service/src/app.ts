@@ -1,23 +1,23 @@
-import "./config";
-import express from "express";
+import express, { Request, Response } from "express";
 import bodyParser from "body-parser";
 import { SupplierController } from "./controllers/SupplierController";
-
+import "./config";
 const app = express();
 const PORT = process.env.PORT || 3002;
 
 app.use(bodyParser.json());
 
-// Routes
-app.post("/suppliers", (req, res) =>
-  SupplierController.createSupplier(req, res)
-);
-app.post("/update-suppliers", (req, res) =>
-  SupplierController.updateSupplier(req, res)
-);
-app.delete("/suppliers/:id", (req, res) =>
-  SupplierController.deleteSupplier(req, res)
-);
-app.get("/suppliers", (req, res) => SupplierController.getSuppliers(req, res));
+// Health Check Route
+//@ts-ignore
+app.get("/", (req: Request, res: Response) => {
+  console.log("Hello from Suppliers Service!");
+  res.json({ message: "Hello from Suppliers Service!" });
+});
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+// Supplier Routes
+app.post("/suppliers", SupplierController.createSupplier);
+app.post("/update-supplier", SupplierController.updateSupplier);
+app.delete("/supplier/:id", SupplierController.deleteSupplier);
+app.get("/suppliers", SupplierController.getSuppliers);
+
+app.listen(3002, () => console.log(`Server running on port ${3002}`));
