@@ -11,8 +11,8 @@ app.use(bodyParser.json());
 
 // Routes
 app.post("/suppliers", SupplierController.createSupplier);
-app.put("/suppliers/:id", SupplierController.updateSupplier);
-app.delete("/suppliers/:id", SupplierController.deleterSupplier);
+app.post("/update-supplier", SupplierController.updateSupplier);
+app.delete("/supplier/:id", SupplierController.deleterSupplier);
 app.get("/suppliers", SupplierController.getSuppliers);
 
 // Start the server

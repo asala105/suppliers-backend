@@ -19,7 +19,7 @@ export class SupplierController {
     try {
       //TODO: add input validation
       const result = await SupplierService.updateSupplier(
-        req.params.id,
+        req.body.id,
         req.body.data
       );
       res.status(201).json(result);
