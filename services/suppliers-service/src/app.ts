@@ -7,13 +7,6 @@ const PORT = process.env.PORT || 3002;
 
 app.use(bodyParser.json());
 
-// Health Check Route
-//@ts-ignore
-app.get("/", (req: Request, res: Response) => {
-  console.log("Hello from Suppliers Service!");
-  res.json({ message: "Hello from Suppliers Service!" });
-});
-
 // Supplier Routes
 app.post("/suppliers", SupplierController.createSupplier);
 app.post("/update-supplier", SupplierController.updateSupplier);
