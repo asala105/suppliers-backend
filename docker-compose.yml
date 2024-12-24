@@ -29,10 +29,10 @@ services:
       DB_NAME: ${DB_NAME}
     depends_on:
       - postgres
-    volumes:
-      - ./components:/components
     networks:
       - app-network
+    volumes:
+      - components:/components
 
   dapr-sidecar-suppliers-data-service:
     image: daprio/daprd:latest
@@ -42,11 +42,14 @@ services:
       "--app-port", "3001",
       '--dapr-http-port', '3501',
       '--log-level', 'debug',
+      "--resources-path", "./components"
     ]
     depends_on:
       - suppliers-data-service
     networks:
       - app-network
+    volumes:
+      - components:/components
 
   suppliers-service:
     build:
@@ -55,13 +58,13 @@ services:
     ports:
       - '3002:3002'
     depends_on:
-      - postgres
+      - suppliers-data-service
     environment:
       PORT: ${PORT}
     networks:
       - app-network
     volumes:
-      - ./components:/components
+      - components:/components
 
   
   dapr-sidecar-suppliers-service:
@@ -72,13 +75,19 @@ services:
       '-app-port', '3002',
       '--dapr-http-port', '3502',
       '--log-level', 'debug',
+      "--resources-path", "./components"
     ]
     depends_on:
       - suppliers-service
     networks:
       - app-network
+    volumes:
+      - components:/components
 
 networks:
   app-network:
+    driver: bridge
 volumes:
   postgres_data:
+  components:
+    driver: local

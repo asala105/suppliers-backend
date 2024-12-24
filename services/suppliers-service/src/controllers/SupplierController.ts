@@ -9,7 +9,7 @@ export class SupplierController {
       // TODO: add input validation
       const result = await SupplierService.createSupplier(req.body);
       console.log("Creating supplier:", req.body);
-      res.status(201).json(result);
+      res.status(200).json(result);
     } catch (error) {
       console.error("Error creating supplier:", error);
       const errorMessage =
