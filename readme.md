@@ -95,3 +95,20 @@ The application should now be running and accessible at ```http://localhost:3001
 - POST /update-supplier: Update an existing supplier
 - DELETE /supplier/:id: Delete a supplier by ID
 - GET /suppliers: Get a list of suppliers
+
+**Implementation Status**
+
+**Implemented:**
+
+- Node.js Services: The repository contains two Node.js services, suppliers-data-service and suppliers-service.
+- PostgreSQL: Supplier details are stored in PostgreSQL, which is run in a separate Docker container.
+- Dapr Integration: The services are integrated using Dapr, with configurations provided for running Dapr sidecars locally. (Demonstrated in the communication between suppliers-data-service and suppliers-service.)
+- CQRS Pattern: The suppliers-data-service is dedicated to interacting with the PostgreSQL data store, adhering to the CQRS pattern.
+- Pagination and Sorting: Pagination and sorting functionalities are partially implemented. The UI is complete, but the backend requires additional changes.
+
+**Missing:**
+- Testing:
+I added the necessary configurations and started implementing test files, but I encountered a blocker:Exception during run: TypeError: Unknown file extension ".ts" for /Users/asalaelghandour/personal projects/suppliers-backend/services/suppliers-service/src/Services/SupplierService.test.ts at Object.getFileProtocolModuleFormat [as file:] (node:internal/modules/esm/get_format:160:9) at defaultGetFormat (node:internal/modules/esm/get_format:203:36) at defaultLoad (node:internal/modules/esm/load:143:22) at async ModuleLoader.load (node:internal/modules/esm/loader:396:7) at async ModuleLoader.moduleProvider (node:internal/modules/esm/loader:278:45) at async link (node:internal/modules/esm/module_job:78:21)Code: ERR_UNKNOWN_FILE_EXTENSIONDespite researching and trying several suggested fixes, I was unable to resolve the issue within the given time.
+- Suppliers Management Application:
+The frontend application for managing suppliers is not included in this repository. It was built in a separate repository.
+
