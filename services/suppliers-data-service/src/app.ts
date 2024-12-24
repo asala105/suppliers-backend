@@ -3,11 +3,19 @@ import express from "express";
 import "./config";
 import { SupplierController } from "./controllers/SupplierController";
 import { AppDataSource } from "./data-source";
+import cors from "cors";
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
 app.use(bodyParser.json());
+
+const corsOptions = {
+  origin: "*", // Your frontend URL
+  methods: "GET, POST, PUT, DELETE",
+};
+
+app.use(cors(corsOptions));
 
 // Routes
 app.post(
