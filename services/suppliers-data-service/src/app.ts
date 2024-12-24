@@ -10,8 +10,16 @@ const PORT = process.env.PORT || 3001;
 app.use(bodyParser.json());
 
 // Routes
-app.post("/suppliers", SupplierController.createSupplier);
-app.post("/update-supplier", SupplierController.updateSupplier);
+app.post(
+  "/suppliers",
+  SupplierController.validate("createSupplier"),
+  SupplierController.createSupplier
+);
+app.post(
+  "/update-supplier",
+  SupplierController.validate("updateSupplier"),
+  SupplierController.updateSupplier
+);
 app.delete("/supplier/:id", SupplierController.deleterSupplier);
 app.get("/suppliers", SupplierController.getSuppliers);
 
