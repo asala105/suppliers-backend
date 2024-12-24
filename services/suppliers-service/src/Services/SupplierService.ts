@@ -1,17 +1,15 @@
-// src/services/SupplierService.ts
-import axios from "axios";
 import { Supplier } from "../types";
-import { DaprClient, HttpMethod } from "@dapr/dapr";
+import { CommunicationProtocolEnum, DaprClient, HttpMethod } from "@dapr/dapr";
 
-const SUPPLIERS_DATA_SERVICE_URL = process.env.SUPPLIERS_DATA_SERVICE_URL;
-const daprHost = process.env.DAPR_HOST;
-const daprPort = process.env.DAPR_PORT;
+const daprHost = process.env.DAPR_HOST || "localhost";
+const daprPort = process.env.DAPR_PORT || "3502";
 const client = new DaprClient({
+  communicationProtocol: CommunicationProtocolEnum.HTTP,
   daprHost,
   daprPort,
 });
 
-const targetAppId = process.env.DAPR_TARGET_APP || "";
+const targetAppId = process.env.DAPR_TARGET_APP || "suppliers-data-service";
 
 export class SupplierService {
   static async createSupplier(data: Partial<Supplier>) {
@@ -35,7 +33,7 @@ export class SupplierService {
     try {
       const response = await client.invoker.invoke(
         targetAppId,
-        `suppliers/${id}`,
+        "update-suppliers",
         HttpMethod.PUT,
         data
       );
@@ -52,7 +50,7 @@ export class SupplierService {
     try {
       const response = await client.invoker.invoke(
         targetAppId,
-        `suppliers/${id}`,
+        `supplier/${id}`,
         HttpMethod.DELETE
       );
       return response;
@@ -71,9 +69,8 @@ export class SupplierService {
     try {
       const response = await client.invoker.invoke(
         targetAppId,
-        `suppliers`,
-        HttpMethod.GET,
-        { filters, sort }
+        "suppliers",
+        HttpMethod.GET
       );
       return response;
     } catch (error) {
